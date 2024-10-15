@@ -5,7 +5,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "*",
     methods: ["GET", "POST"],
   })
 );
@@ -23,6 +23,11 @@ app.get("/", (req, res) => {
   res.send("Hello from the server!");
 });
 
+// Vercel requirement for serverless function
+module.exports = app;
+
+/*
 const PORT = process.env.PORT || 7070;
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+*/
