@@ -17,9 +17,9 @@ router.post("/", async (req, res) => {
       line_items: lineItems,
       mode: "payment",
       success_url:
-        "http://localhost:3000/account/checkout/success?session_id={CHECKOUT_SESSION_ID}",
+        "https://moderngrains-rpg.netlify.app/account/checkout/success?session_id={CHECKOUT_SESSION_ID}",
       cancel_url:
-        "http://localhost:3000/account/checkout/cancel?session_id={CHECKOUT_SESSION_ID}",
+        "https://moderngrains-rpg.netlify.app/checkout/cancel?session_id={CHECKOUT_SESSION_ID}",
     });
 
     res.json({ url: session.url });
