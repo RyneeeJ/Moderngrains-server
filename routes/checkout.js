@@ -1,18 +1,8 @@
+const express = require("express");
+const router = express.Router();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-export default async function checkoutHandler(req, res) {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://moderngrains-rpg.netlify.app/"
-  );
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS"); // Allowed methods
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Allowed headers
-
-  if (req.method === "OPTIONS") {
-    // Handle preflight requests
-    res.status(200).end();
-    return;
-  }
+router.post("/", async (req, res) => {
   try {
     const items = req.body.items;
     let lineItems = [];
@@ -34,7 +24,8 @@ export default async function checkoutHandler(req, res) {
 
     res.json({ url: session.url });
   } catch (e) {
-    console.error("Error in serverless function:", error);
     res.status(500).json({ error: e.message });
   }
-}
+});
+
+module.exports = router;

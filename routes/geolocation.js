@@ -1,19 +1,8 @@
+const express = require("express");
 const axios = require("axios");
+const router = express.Router();
 
-export default async function (req, res) {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://moderngrains-rpg.netlify.app/"
-  ); // Allow requests from any origin
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS"); // Allowed methods
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Allowed headers
-
-  if (req.method === "OPTIONS") {
-    // Handle preflight requests
-    res.status(200).end();
-    return;
-  }
-
+router.get("/", async (req, res) => {
   const { lat, lng } = req.query;
 
   if (!lat || !lng) {
@@ -44,4 +33,6 @@ export default async function (req, res) {
     console.error("Error fetching geolocation:", error.message);
     res.status(500).json({ error: "Failed to fetch geolocation data" });
   }
-}
+});
+
+module.exports = router;
