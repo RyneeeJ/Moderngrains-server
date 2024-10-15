@@ -5,7 +5,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://moderngrains-client.vercel.app",
     methods: ["GET", "POST"],
   })
 );
