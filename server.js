@@ -5,7 +5,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://moderngrains-rpg.netlify.app/",
+    origin: "https://moderngrains-rpg.netlify.app",
     methods: ["GET", "POST"],
   })
 );
