@@ -3,7 +3,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 export default async function checkoutHandler(req, res) {
   res.setHeader(
     "Access-Control-Allow-Origin",
-    "https://moderngrains-rpg.netlify.app"
+    "https://moderngrains-rpg.netlify.app/"
   );
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS"); // Allowed methods
   res.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Allowed headers
@@ -34,6 +34,7 @@ export default async function checkoutHandler(req, res) {
 
     res.json({ url: session.url });
   } catch (e) {
+    console.error("Error in serverless function:", error);
     res.status(500).json({ error: e.message });
   }
 }

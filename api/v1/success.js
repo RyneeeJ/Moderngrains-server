@@ -1,7 +1,7 @@
 export default async function checkoutSuccessHandler(req, res) {
   res.setHeader(
     "Access-Control-Allow-Origin",
-    "https://moderngrains-rpg.netlify.app"
+    "https://moderngrains-rpg.netlify.app/"
   ); // Allow requests from any origin
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS"); // Allowed methods
   res.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Allowed headers
@@ -19,6 +19,7 @@ export default async function checkoutSuccessHandler(req, res) {
 
     res.json({ status: session.payment_status });
   } catch (e) {
+    console.error("Error in serverless function:", error);
     res.status(500).json({ error: e.message });
   }
 }
