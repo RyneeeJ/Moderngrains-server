@@ -1,8 +1,6 @@
-const express = require("express");
 const axios = require("axios");
-const router = express.Router();
 
-router.get("/", async (req, res) => {
+export default async function (req, res) {
   const { lat, lng } = req.query;
 
   if (!lat || !lng) {
@@ -33,6 +31,4 @@ router.get("/", async (req, res) => {
     console.error("Error fetching geolocation:", error.message);
     res.status(500).json({ error: "Failed to fetch geolocation data" });
   }
-});
-
-module.exports = router;
+}

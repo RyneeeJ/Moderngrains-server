@@ -1,8 +1,6 @@
-const express = require("express");
-const router = express.Router();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-router.post("/", async (req, res) => {
+export default async function checkoutHandler(req, res) {
   try {
     const items = req.body.items;
     let lineItems = [];
@@ -22,25 +20,8 @@ router.post("/", async (req, res) => {
         "http://localhost:5173/account/checkout/cancel?session_id={CHECKOUT_SESSION_ID}",
     });
 
-    res.send(
-      JSON.stringify({
-        url: session.url,
-      })
-    );
+    res.json({ url: session.url });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
-});
-
-router.get("/success", async (req, res) => {
-  try {
-    const session = await stripe.checkout.sessions.retrieve(
-      req.query.session_id
-    );
-
-    res.send({ status: session.payment_status });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
-module.exports = router;
+}
