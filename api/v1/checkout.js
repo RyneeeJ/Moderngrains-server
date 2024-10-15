@@ -1,6 +1,15 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export default async function checkoutHandler(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*"); // Allow requests from any origin
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS"); // Allowed methods
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Allowed headers
+
+  if (req.method === "OPTIONS") {
+    // Handle preflight requests
+    res.status(200).end();
+    return;
+  }
   try {
     const items = req.body.items;
     let lineItems = [];
